@@ -1,0 +1,91 @@
+- hosts: rhelai-gw
+  tasks:
+    - name: create gpupeople group
+      tags: [accounts]
+      group:
+        name: gpupeople
+        state: present
+
+    - name: create user accounts
+      tags: [accounts]
+      loop: "{{ gpupeople }}"
+      user:
+        name: "{{ item.username }}"
+        comment: "{{ item.name }}"
+        groups: gpupeople
+        create_home: true
+
+    - name: install ssh keys
+      tags: [accounts]
+      loop: "{{ gpupeople }}"
+      when: "item.ssh_keys|default(false)"
+      ansible.posix.authorized_key:
+        user: "{{ item.username }}"
+        state: present
+        key: "{{ item.ssh_keys }}"
+
+    - name: create gpupeople directory
+      tags: [docs]
+      file:
+        path: /home/gpupeople
+        state: directory
+        owner: root
+        group: gpupeople
+        mode: 0775
+
+    - name: install gpupeople README
+      tags: [docs]
+      copy:
+        src: files/README.md
+        dest: /home/gpupeople/README.md
+        owner: root
+        group: gpupeople
+        mode: 0644
+
+    - name: create bmc network interface
+      tags: [network]
+      community.general.nmcli:
+        state: present
+        type: vlan
+        conn_name: bmcnet
+        ifname: bmcnet
+        vlandev: eth0
+        vlanid: 911
+
+    - name: add gpu hosts to /etc/hosts
+      tags: [hosts]
+      loop: "{{ gpuhosts }}"
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item.ip }} {{ item.name }}"
+        regex: "{{ item.name }}"
+
+    - name: install iptables
+      tags: [firewall]
+      package:
+        name: "{{ packages }}"
+        state: installed
+      vars:
+        packages:
+          - iptables-nft
+          - iptables-nft-services
+
+    - name: install iptables configuration
+      tags: [firewall]
+      template:
+        src: files/iptables
+        dest: /etc/sysconfig/iptables
+      notify:
+      - reload-iptables
+
+    - name: enable iptables
+      tags: [firewall]
+      service:
+        name: iptables
+        state: started
+        enabled: true
+
+  handlers:
+    - name: reload iptables
+      listen: reload-iptables
+      command: systemctl reload iptables

@@ -1,0 +1,9 @@
+gpuhosts:
+- ip: 10.2.18.127
+  name: gpu0-bmc
+- ip: 10.2.18.128
+  name: gpu1-bmc
+- ip: 10.2.18.130
+  name: gpu2-bmc
+- ip: 10.2.18.131
+  name: gpu3-bmc

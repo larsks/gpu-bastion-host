@@ -1,0 +1,6 @@
+all:
+  hosts:
+    rhelai-gw:
+      ansible_host: rhelai-gw.int.massopen.cloud
+      ansible_user: cloud-user
+      ansible_become: true
