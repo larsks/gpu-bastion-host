@@ -29,3 +29,7 @@ gpupeople:
     username: jkunstle
     ssh_keys: |
       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD5ri1MOWwmqL2/m4RPLotJEULjWKNKBBdPHMIML3plp5eiRxALYJPW4D+ED35lrrepd8M4ue9esOKF+t0Fjc+8ckNIENC+cZYkaQvD/UIu+QkBCqMundVbaIgtL/VDd72HfvL0CT86mR/tasPusyCvM7tbWY1g+CSNe6CFgW5sX1t/Nz7W6RKcCqoJihQGPi2EHPJ2IhxmLI1q+HRu5p0W0oA+NEZWDwqvc/BFFWFQcHYabLwwA74gljS5G0YwfaehRRZcsASvbP/+Y7hQrGxkjuBmk+Qw/XFpewlzMfkHdqF3U2LAZEO6OG/Wriahzs2S0pCbTZcELw7wafAshguo13keytbtmRKxiJYbHTdNJjkdCOAoOhujxh986kHVAzwMFpgjsLUYbHEnVHq5p6MJfCXX6k/Y7Se+V4k3pTzYJXMvrvQCpw7Beg25R+AywYL6mvdaPdPZI7a/fjsvoTUH1a0vL18g12srCO4te4h/RRF8JpYwg1jYlVpGRHw5t2s= jkunstle@jkunstle-mac
+  - name: Thibault Guittet
+    username: tguittet
+    ssh_keys: |
+      ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILn+DLN0y8z7d8wMasTGcjD8pFOPxHarmA1XXNWIki+1
